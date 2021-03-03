@@ -1,3 +1,6 @@
+const groups = document.querySelectorAll('optgroup');
+const output = document.querySelector('.output');
+
 class App {
   citys = [
     // Marmara
@@ -418,6 +421,40 @@ class App {
 
 const app = new App();
 
+list = (risk) => {
+  if(risk == 'Dusuk') {
+    return `burasi ${risk} riskli`;
+  } else if(risk == 'Orta') {
+    return `burasi ${risk} riskli`;
+  } else if(risk == 'Yuksek') {
+    return `burasi ${risk} riskli`;
+  } else if(risk == 'Cok Yuksek') {
+    return `burasi ${risk} riskli`;
+  }
+}
+
 app.citys.map((city) => {
-  console.log(city.riskLevel);
-})
+  for(let x = 0; x < groups.length; x++) {
+    if(groups[x].label == city.area) {
+      let option = document.createElement('option');
+      option.innerHTML = `${city.name}`;
+
+      groups[x].appendChild(option);
+
+      options = document.querySelectorAll('option');
+
+      show = (e) => {
+        let $clicked = e.target.textContent;
+
+        if($clicked == city.name) {
+          output.innerHTML = `${list(city.riskLevel)}`;
+        }
+      }
+
+      options.forEach((option) => {
+        option.addEventListener('click', show)
+      })
+
+    }
+  }
+});
